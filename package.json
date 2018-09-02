@@ -1,0 +1,29 @@
+{
+  "name": "hostedwith_toti",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "cheerio": "^1.0.0-rc.2",
+    "connect": "^3.6.6",
+    "connect-mongostore": "^0.1.4",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "mdi-material-ui": "^5.3.0",
+    "mongoose": "^5.2.9",
+    "nodemon": "^1.18.3",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.5",
+    "session-file-store": "^1.2.0"
+  }
+}
