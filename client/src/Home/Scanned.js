@@ -1,10 +1,12 @@
 import React from 'react';
 import RankBox from "../Providers/rankBox";
+import Collapse from '@material-ui/core/Collapse';
 export default (props)=>{
     const {
         styles,
         result,
-        onClick
+        onClick,
+        clicked
     }=props;
     const style={
         resultsWrapper:{
@@ -79,6 +81,7 @@ export default (props)=>{
     }
     return( 
         <div style={style.resultsWrapper} className="scannedDiv">
+        <Collapse in={clicked}>
         <div style={style.resultsContainer}>
             <div style={style.titleWrapper}><h2 style={style.resultsTitleWrapper}>Result</h2></div>
             <div style={style.resultsInfoWrapper}>
@@ -86,20 +89,21 @@ export default (props)=>{
                     <span>SITE IS HOSTED WITH: <strong>{result.isp}</strong> </span>
                 </div> 
                 <div style={{...style.resultsInfoItem,alignItems:"left"}}>
-                    <span style={{...style.titleWrapper,fontSize:"1vw",color:"white",width:"33%"}}>Providers details</span>
+                    <span style={{...style.titleWrapper,fontSize:"0.6vw",color:"white",width:"33%"}}>Providers details</span>
                 </div>
                 
                 <div style={style.rankBoxWrapper}>
-                        <RankBox cat={"Number hosted"} level="positive" content={123123}/>
-                        <RankBox cat={"Growth"} level="negative" content={"2.5%"}/>
-                        <RankBox cat={"Growth"} level="medium" content={"2.5%"}/>
+                        <RankBox cat={"Percentage"} level={"medium"} content={parseFloat(result.percentage).toFixed(2)+"%"}/>
+                        <RankBox cat={"Growth"} level={result.growth>result.oldgrowth?"positive":"negative"} content={parseFloat(result.growth).toFixed(2)+"%"}/>
                         <RankBox cat={"Server location"} level="neutral" content={result.country}/>
                 </div>
                 <div className="link" onClick={onClickHandler} style={style.resultsInfoItem}>
                     <span>Read more info..</span>
                 </div>
-            </div>
+                
+            </div>   
         </div>
+        </Collapse>
         <div style={style.resultsWrapperPseudo}></div>
         </div>
     )

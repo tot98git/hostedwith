@@ -7,7 +7,9 @@ export default class Edit extends Component {
     constructor(props){
         super(props);
         this.state={
-            provider:{},        }
+            provider:{}, 
+            file:"",
+           }
         this.style={
             wrapper:{
                 display:"flex",
@@ -22,18 +24,30 @@ export default class Edit extends Component {
     onChange=(e)=>{
         this.setState({
             provider:{...this.state.provider,[e.target.name]:e.target.value}
-        },()=>{console.log(this.state)})
+        })
     }
-    componentDidMount(){
-        Axios.get(`/providers/${this.props.match.params.id}`).then(res=>{
-            console.log(res);
+     componentDidMount(){
+        Axios.get("/auth/").then(res=>{
+            if(res.data==0)this.props.history.push("/login");
+        })
+        Axios.get(`/api/providers/${this.props.match.params.id}`).then(res=>{
             this.setState({
                 provider:res.data
             })
         })
     }
     onSave=()=>{
-        Axios.post("/providers/",{id:this.props.match.params.id,values:this.state.provider}).then((res)=>{
+        let data = new FormData();
+        data.append('id',this.props.match.params.id);
+        data.append('isp',this.state.provider.isp);
+        data.append('desc',this.state.provider.desc);
+        data.append('ref_link',this.state.provider.ref_link);
+        data.append('file',this.state.file)
+        console.log("DATA: ",data);
+        for (var [key,value] in data.entries() ){
+            console.log("KEY",key)
+        }
+        Axios.post("/providers/",data).then((res)=>{
             if(res.data==1){
                 this.props.history.replace("/cms");
             }
@@ -45,6 +59,11 @@ export default class Edit extends Component {
                 this.props.history.replace("/cms");
             }
         })
+    }
+    handleFile = (e)=>{
+        this.setState({
+            file:e.target.files[0]
+        },()=>{console.log(this.state)})
     }
     onDiscard=()=>{
         this.props.history.replace("/cms")
@@ -62,6 +81,7 @@ export default class Edit extends Component {
                         onDelete={this.onDelete}
                         onDiscard={this.onDiscard}
                         onChange={this.onChange}
+                        onFile = {this.handleFile}
                         values={this.state.provider}/>
                     </div>
                 </div> 

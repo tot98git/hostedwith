@@ -16,15 +16,16 @@ class App extends Component {
       url:"",
       list:[],
       results:{},
-      settings:{},
+      settings:{headline1:""},
       open:false,
-      loader:false
+      loader:false,
+      clickedNum:0
         }
   }
    async componentDidMount(){
-    let sett = await Axios.get('/settings');
-    let list = await Axios.get('/providers/list');
-    console.log("settings: ",sett)
+    let sett = await Axios.get('/api/settings');
+    let list = await Axios.get('/api/providers/list');
+    localStorage.setItem('mode',sett.data[0].mode);
     this.setState({
       list:list.data,
       settings:sett.data[0]
@@ -35,19 +36,24 @@ class App extends Component {
       clicked:true,
       loader:true,
     })
-    Axios.get(`/url/${encodeURI(this.state.url)}`).then(res=>{
+    let url =this.state.url.includes('https')?this.state.url.replace(/^https?:\/\//,''):
+  this.state.url.includes('http')?this.state.url.replace(/^http?:\/\//,''):this.state.url;
+    Axios.get(`/api/url/${encodeURI(url)}`).then(res=>{
       this.setState({
         open:true,
         results:res.data,
-        loader:false
-      },()=>{console.log("E: ",);})
+        loader:false,
+        clickedNum:1
+      })
     })
   }
   inputOnFocus=()=>{
     this.setState({
       open:false,
       loader:false,
-      clicked:false
+      clicked:false,
+      clickedNum:0,
+      results:{}
     })
   }
   inputOnChange=(e)=>{
@@ -72,7 +78,7 @@ class App extends Component {
         <div className="upper-section">
           <Particles style={{width:'100%'}} params={{particles:{
             number:{
-            value: "20"
+            value: "2"
             },
             size:{
             value:'5',
@@ -83,7 +89,7 @@ class App extends Component {
          }}}/>
         <Header/> 
           <div className="main-section">
-            <h1>{this.state.settings.headline1}</h1>
+            <h1>{this.state.settings.headline1.toUpperCase()}</h1>
             <h3>{this.state.settings.headline2}</h3>
           </div>
           <div className="action-container">
@@ -93,11 +99,11 @@ class App extends Component {
               onChange={this.inputOnChange} 
               onClick={this.scanOnClick} 
               clicked={this.state.clicked} 
-              onFocus={this.inputOnFocus  }
+              onFocus={this.inputOnFocus}
               divWidth="50%"/>
           </div>
         </div>
-        {<Scanned onClick={this.scannedMore} result={this.state.results} styles={{display:this.state.open?"block":"none",width:"50%",margin:"auto",backgroundColor:"rgba(1,1,1,0.1)"}}/>}
+        {<Scanned onClick={this.scannedMore} clicked={this.state.clicked} result={this.state.results} styles={{width:"50%",margin:"auto",backgroundColor:"rgba(1,1,1,0.1)"}}/>}
         <div className="middle-section">
           <Results  list={this.state.list}/>
         </div>

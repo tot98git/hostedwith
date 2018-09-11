@@ -1,13 +1,18 @@
 import React from 'react';
 import Logo from "./img/hostedwith_logo2.png"
-export default  ()=>{
+import {Link} from "react-router-dom"
+export default  (props)=>{
+    const {
+        itemColor
+    }=props;
     const style = {
         container:{ 
         width:"100%",
         overflow:"auto",
         padding:"2%",
         boxSizing:"border-box",
-        position:"relative"
+        position:"relative",
+        minWidth:"50vw"
     },
         logo:{
             width:"15vw",
@@ -23,7 +28,8 @@ export default  ()=>{
             width:"40vw",
             float:"right",
             display:"inline-flex",
-            justifyContent:"space-between"
+            justifyContent:"space-between",
+            color:itemColor?itemColor:"white"
         }
 
     }
@@ -33,12 +39,16 @@ export default  ()=>{
                 <img style={style.imgWrapper}src={Logo}/>
             </div>
             <div className="menu-wrapper" style={style.menuWrapper}>
-                <div className="menu-item">
-                    Home
-                </div>
-                <div className="menu-item">
-                    HOSTING PROVIDERS
-                </div>
+                <Link to="/">
+                    <div className="menu-item">
+                        Home
+                    </div>
+                </Link>
+                <Link to="/providers">
+                    <div className="menu-item">
+                        HOSTING PROVIDERS
+                    </div>
+                </Link>
                 <div className="menu-item">
                     COUPONS
                 </div>

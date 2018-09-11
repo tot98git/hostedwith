@@ -11,8 +11,11 @@ const providerSchema = new mongoose.Schema(
         ref_link:String,
         desc:String,
         deleted:Number,
-        date:Date
-        
+        date:Date,
+        percentage:Number,
+        growth:Number,
+        oldgrowth:Number,
+        thumb:String            
 
     }
 )

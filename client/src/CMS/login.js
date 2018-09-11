@@ -19,8 +19,7 @@ export default class Login extends Component{
         })
     }
     handleLogin=(e)=>{
-        console.log("clicked")
-        axios.post("/auth",{username:this.state.username,password:this.state.password}).then((res)=>{
+        axios.post("/auth/",{username:this.state.username,password:this.state.password}).then((res)=>{
             if(res.data===1){
                 localStorage.setItem('auth',1);
                 this.props.history.replace("/cms")

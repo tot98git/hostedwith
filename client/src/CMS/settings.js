@@ -3,6 +3,7 @@ import Frame from "./frame"
 import Avatar from "./avatar";
 import Button from "../Providers/rankBox";
 import Axios from 'axios';
+import {Input} from 'antd';
 export default class Settings extends Component{
     constructor(props){
         super(props);
@@ -21,10 +22,8 @@ export default class Settings extends Component{
         Axios.get("/auth").then(res=>{
             res.data==0?this.props.history.push("/login"):null
         })
-        Axios.get("/settings").then(res=>{
-            console.log("RES: ",res)
+        Axios.get("/api/settings").then(res=>{
             this.setState({object:res.data[0]},()=>{
-                console.log(this.state)
             })
         })
     }
@@ -33,13 +32,13 @@ export default class Settings extends Component{
         object[e.target.name]=e.target.value;
         this.setState({
             object:object
-        },()=>{console.log("UPDATED STATE: ",this.state.object)})
+        })
     }
     onDiscard = ()=>{
         this.props.history.push('/cms')
     }
     onSave=()=>{
-        Axios.post('/settings',this.state.object).then(res=>{
+        Axios.post('/api/settings',this.state.object).then(res=>{
             res.data==1?this.props.history.push("/cms"):null
         })
     }
@@ -52,28 +51,28 @@ export default class Settings extends Component{
                     <div className="settings-block">
                         <h3>Website settings</h3>
                         <div className="settings-item">
-                            <input type="text" name="headline1" onChange={this.inputOnChange} value={this.state.object.headline1} placeholder="Headline 1..."/>
+                            <Input type="text" name="headline1" onChange={this.inputOnChange} value={this.state.object.headline1} placeholder="Headline 1..."/>
                         </div>
                         <div className="settings-item">
-                            <input type="text" name="headline2"  onChange={this.inputOnChange} value={this.state.object.headline2} placeholder="Headline 2..."/>
+                            <Input type="text" name="headline2"  onChange={this.inputOnChange} value={this.state.object.headline2} placeholder="Headline 2..."/>
                         </div>
                         <h3>Links</h3>
                         <div className="settings-item">
-                            <input type="text" name="soc_link_fb"  onChange={this.inputOnChange} value={this.state.object.soc_link_fb} placeholder="Facebook link"/>
+                            <Input type="text" name="soc_link_fb"  onChange={this.inputOnChange} value={this.state.object.soc_link_fb} placeholder="Facebook link"/>
                         </div>
                         <div className="settings-item">
-                            <input type="text" name="soc_link_ig"  onChange={this.inputOnChange} value={this.state.object.soc_link_ig} placeholder="Instagram link"/>
+                            <Input type="text" name="soc_link_ig"  onChange={this.inputOnChange} value={this.state.object.soc_link_ig} placeholder="Instagram link"/>
                         </div>
                         <div className="settings-item">
-                            <input type="text" name="soc_link_tw"  onChange={this.inputOnChange} value={this.state.object.soc_link_tw} placeholder="Twitter link"/>
+                            <Input type="text" name="soc_link_tw"  onChange={this.inputOnChange} value={this.state.object.soc_link_tw} placeholder="Twitter link"/>
                         </div>
                         <h3>Other settings</h3>
                         <div className="settings-item">
-                            <input type="text" name="copyright"  onChange={this.inputOnChange} value={this.state.object.copyright} placeholder="Copyright text"/>
+                            <Input type="text" name="copyright"  onChange={this.inputOnChange} value={this.state.object.copyright} placeholder="Copyright text"/>
                         </div>
                         <div className="settings-item">
                             <h6>Select mode:</h6>
-                            <select name="mode" placeholder="Select mode..">
+                            <select onChange={this.inputOnChange} value={this.state.object.mode} name="mode" placeholder="Select mode..">
                                 <option name="mode" value="light">Light</option>
                                 <option name="mode" value="dark">Dark</option>
                             </select>

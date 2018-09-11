@@ -55,7 +55,8 @@ export default (props)=>{
             overflow:"auto"
         }
     }
-    const onClickHandler=()=>{
+    const onClickHandler=(e)=>{
+        e.preventDefault();
         onClick();
     }
     return(

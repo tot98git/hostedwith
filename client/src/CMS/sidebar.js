@@ -24,6 +24,9 @@ export default ()=>{
                 <div>
                     <h1><Link to="/cms/settings">Settings</Link></h1>
                 </div>
+                <div>
+                    <h1><Link to="/cms/credentials">Credentials</Link></h1>
+                </div>
             </div>
         </div>
     )

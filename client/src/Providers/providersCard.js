@@ -7,6 +7,10 @@ export default (props)=>{
         rank,
         onClick,
         name,
+        growth,
+        oldgrowth,
+        percentage,
+        country,
         id
     }=props;
     const modeSelected={
@@ -44,6 +48,7 @@ export default (props)=>{
             fontSize:"1vw"
         },
         title:{
+            color:"white",
             fontSize:"1vw",
             textShadow:"1px 1px 1px black"
         }
@@ -60,10 +65,9 @@ export default (props)=>{
                 <div className="link" onClick={onClickHandler}style={style.title}>
                     <h1>{title}</h1>
                 </div>
-                <Box level={"neutral"}/>
-                <Box level={"medium"}/>
-                <Box level={"positive"}/>
-                <Box level={"negative"}/>
+                <Box cat="Percentage" level={"medium"} content={parseFloat(percentage).toFixed(2)+"%"}/>
+                <Box cat="Growth" level={growth>oldgrowth?"positive":"negative"} content={parseFloat(growth).toFixed(2)+"%"}/>
+                <Box cat="Country" level={"neutral"} content={country}/>
             </div>
         </div>
     )
