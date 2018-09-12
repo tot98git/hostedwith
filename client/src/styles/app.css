@@ -217,3 +217,12 @@ h1{
 .menu-item:hover{
     color:#044c6d;
 }
+
+@media only screen and (max-width: 500px) {
+    .menu-wrapper{
+        width: 300px;
+    }
+    .menu-item {
+        font-size:1.5vw;
+    }
+}

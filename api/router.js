@@ -6,6 +6,7 @@ const provider = require('../models/providerSchema');
 const settings = require('../models/settingsSchema');
 const searched = require("../models/searchedSchema")
 const multer = require('multer');
+const loginApi = require("./login")
 var upload = multer({storage:multer.diskStorage({
     destination:(req,file,cb)=>{
       cb(null,__dirname+"/client/public/screenshots");
@@ -17,7 +18,7 @@ var upload = multer({storage:multer.diskStorage({
   });
 const cheerio = require('cheerio')
 const fs = require('fs');
-
+router.use("/auth",loginApi);
 router.get("/url/:url",async (req,res)=>{
     let url = decodeURI(req.params.url);
     

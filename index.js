@@ -47,7 +47,7 @@ app.use(session({
     secret:"betweenrowsAuth"
 }
 ))
-app.use('/api',api);  
+app.use('/api',api);
 app.use(express.static(path.join(__dirname,'client','build')))
 app.use('/public',express.static(path.join(__dirname,'/client/public')));
 app.get("/*",(req,res)=>{
@@ -55,7 +55,6 @@ app.get("/*",(req,res)=>{
 })
 app.use(passport.initialize());
 app.use(passport.session());
-app.use("/auth",login);
 mongoose.connect(uri,{useNewUrlParser:true});
 mongoose.set('debug',true)
 

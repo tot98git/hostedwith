@@ -19,7 +19,7 @@ export default class Settings extends Component{
         }
     }
     componentDidMount(){
-        Axios.get("/auth").then(res=>{
+        Axios.get("/api/auth").then(res=>{
             res.data==0?this.props.history.push("/login"):null
         })
         Axios.get("/api/settings").then(res=>{

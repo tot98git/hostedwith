@@ -22,7 +22,7 @@ export default class Credentials extends Component {
     }
     onSave = ()=>{
         this.setState({confirmLoading:true});
-        Axios.post("/auth/credentials",{username:this.state.username,password:this.state.password,newusername:this.state.newusername,newpassword:this.state.newpassword}).then(res=>{
+        Axios.post("/api/auth/credentials",{username:this.state.username,password:this.state.password,newusername:this.state.newusername,newpassword:this.state.newpassword}).then(res=>{
             if(res.data==1)this.setState({
                 confirmLoading:false,
                 visible:false

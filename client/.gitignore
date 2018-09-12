@@ -8,7 +8,7 @@
 
 # production
 /build
-../sessions
+/sessions
 # misc
 .DS_Store
 .env.local

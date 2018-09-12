@@ -18,12 +18,13 @@ export default class CMS extends Component{
             this.setState({providers:res.data},()=>{console.log()})
         })
     
-        Axios.get('/auth').then(res=>{
+        Axios.get('/api/auth/').then(res=>{
+            console.log("RES",res);
             res.data==0?this.props.history.push("/login"):null
         })
     }
     handleLogOut=()=>{
-        Axios.get("/auth/logout").then(res=>{
+        Axios.get("/api/auth/logout").then(res=>{
             res.data==1?this.props.history.push("/login"):null
         })
     }

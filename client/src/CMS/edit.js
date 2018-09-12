@@ -27,7 +27,7 @@ export default class Edit extends Component {
         })
     }
      componentDidMount(){
-        Axios.get("/auth/").then(res=>{
+        Axios.get("/api/auth/").then(res=>{
             if(res.data==0)this.props.history.push("/login");
         })
         Axios.get(`/api/providers/${this.props.match.params.id}`).then(res=>{

@@ -9,7 +9,7 @@ export default class Login extends Component{
         }
     }
     componentDidMount(){
-        axios.get("/auth").then(res=>{
+        axios.get("/api/auth").then(res=>{
             res.data==1?this.props.history.replace("/cms"):null
         })
     }
@@ -19,7 +19,7 @@ export default class Login extends Component{
         })
     }
     handleLogin=(e)=>{
-        axios.post("/auth/",{username:this.state.username,password:this.state.password}).then((res)=>{
+        axios.post("/api/auth/",{username:this.state.username,password:this.state.password}).then((res)=>{
             if(res.data===1){
                 localStorage.setItem('auth',1);
                 this.props.history.replace("/cms")
