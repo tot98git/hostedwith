@@ -1,4 +1,5 @@
 import React from 'react';
+import {Spin} from 'antd';
 export default (props)=>{
     const{
         list
@@ -81,7 +82,7 @@ export default (props)=>{
         <div className="stats-list" style={style.statsWrapper}>
         <h1 style={style.title}>LAST TEN <strong>SEARCHES</strong></h1>
             <div style={style.statsContainer}>
-            {
+            {list.length==0?<Spin/>:
                 list.map((elem,index)=>{
                     return(
                     <div key={index} className="stats-item" style={style.statsItem}>

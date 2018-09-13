@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const passport = require('passport');
 const bodyParse = require('body-parser');
 const request = require('request-promise-native');
 const provider = require('../models/providerSchema');
@@ -93,7 +94,7 @@ router.post('/settings',(req,res)=>{
     }
 })
 router.get('/providers',(req,res)=>{
-    provider.find({deleted:0},(err,providers)=>{
+    provider.find({deleted:0}).sort({percentage:-1}).exec((err,providers)=>{
         if(err)throw err;
         res.json(providers);
     })

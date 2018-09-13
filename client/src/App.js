@@ -6,8 +6,9 @@ import Results from "./Home/Results"
 import Scanned from "./Home/Scanned";
 import Footer from "./Footer"
 import Particles from 'react-particles-js';
-import {Close} from 'mdi-material-ui'
+import {Skeleton} from 'antd';
 import Axios from 'axios';
+
 class App extends Component {
   constructor(){
     super();
@@ -89,7 +90,7 @@ class App extends Component {
          }}}/>
         <Header/> 
           <div className="main-section">
-            <h1>{this.state.settings.headline1.toUpperCase()}</h1>
+            <h1>{this.state.settings.headline==""?<Skeleton active={true}/>:this.state.settings.headline1.toUpperCase()}</h1>
             <h3>{this.state.settings.headline2}</h3>
           </div>
           <div className="action-container">

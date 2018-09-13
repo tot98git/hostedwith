@@ -23,6 +23,7 @@ export default class Settings extends Component{
             res.data==0?this.props.history.push("/login"):null
         })
         Axios.get("/api/settings").then(res=>{
+            console.log('sett',res.data);
             this.setState({object:res.data[0]},()=>{
             })
         })

@@ -8,7 +8,6 @@ export default  (props)=>{
     const style = {
         container:{ 
         width:"100%",
-        overflow:"auto",
         padding:"2%",
         boxSizing:"border-box",
         position:"relative",

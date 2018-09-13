@@ -47,16 +47,17 @@ app.use(session({
     secret:"betweenrowsAuth"
 }
 ))
+app.use(passport.initialize());
+app.use(passport.session());
 app.use('/api',api);
 app.use(express.static(path.join(__dirname,'client','build')))
 app.use('/public',express.static(path.join(__dirname,'/client/public')));
 app.get("/*",(req,res)=>{
     res.status(200).sendFile(path.join(__dirname,'client','build','index.html'));
 })
-app.use(passport.initialize());
-app.use(passport.session());
+
 mongoose.connect(uri,{useNewUrlParser:true});
 mongoose.set('debug',true)
 
 
-app.listen(5000);
+app.listen(80);

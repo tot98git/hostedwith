@@ -66,7 +66,7 @@ export default (props)=>{
                     <h1>{title}</h1>
                 </div>
                 <Box cat="Percentage" level={"medium"} content={parseFloat(percentage).toFixed(2)+"%"}/>
-                <Box cat="Growth" level={growth>oldgrowth?"positive":"negative"} content={parseFloat(growth).toFixed(2)+"%"}/>
+                <Box cat="Growth" level={growth>0?"positive":"negative"} content={parseFloat(growth).toFixed(2)+"%"}/>
                 <Box cat="Country" level={"neutral"} content={country}/>
             </div>
         </div>
