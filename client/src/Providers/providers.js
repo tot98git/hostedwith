@@ -12,7 +12,7 @@ export default class Providers extends Component{
     }
     onClick=(id,name)=>{
         this.props.history.push({
-            pathname:'/providers/'+name,
+            pathname:'/providers/'+name.replace(' ','-'),
             state:{id:id}
         })
     }

@@ -13,24 +13,10 @@ const path = require('path');
 const login = require("./api/login");
 const session = require('express-session');
 const mkdirp = require('mkdirp');
-const multer = require('multer');
 const fileupload = require("express-fileupload")
 const fs = require('fs');
 const upPath = "./screenshots";
 const FileStore = require('session-file-store')(session)
-
-
-/* MULTER */ 
-var upload = multer({storage:multer.diskStorage({
-    destination:(req,file,cb)=>{
-      cb(null,__dirname+"/client/public/screenshots");
-    },
-    filename:(req,file,cb)=>{
-      cb(null,file.originalname);
-    }
-    })
-  });
-
 
 
 
@@ -60,4 +46,4 @@ mongoose.connect(uri,{useNewUrlParser:true});
 mongoose.set('debug',true)
 
 
-app.listen(80);
+app.listen(5000);

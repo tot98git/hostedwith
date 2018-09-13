@@ -66,9 +66,9 @@ export default (props)=>{
                     <Input onChange={onChangeFile} name="screenshot" type='file'/>
                 </div>
                 <div style={style.btnsContainer}>
-                   <Button onClick={onDeleteHandler} propStyle={style.btns} content="Delete provider info" level="negative"/>
-                    <Button onClick={onDiscardHandler} propStyle={style.btns} content="Discard changes" level="medium"/>
-                    <Button onClick={onSaveHandler} propStyle={style.btns} content="Save changes" level="positive"/>
+                   <Button className="click" onClick={onDeleteHandler} propStyle={style.btns} content="Delete provider info" level="negative"/>
+                    <Button className="click" onClick={onDiscardHandler} propStyle={style.btns} content="Discard changes" level="medium"/>
+                    <Button className="click" onClick={onSaveHandler} propStyle={style.btns} content="Save changes" level="positive"/>
                 </div>
             </form>
             </div>       

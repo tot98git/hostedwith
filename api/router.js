@@ -7,10 +7,11 @@ const provider = require('../models/providerSchema');
 const settings = require('../models/settingsSchema');
 const searched = require("../models/searchedSchema")
 const multer = require('multer');
+const path = require('path');
 const loginApi = require("./login")
 var upload = multer({storage:multer.diskStorage({
     destination:(req,file,cb)=>{
-      cb(null,__dirname+"/client/public/screenshots");
+      cb(null,path.join(__dirname,"../","/client/public/screenshots"));
     },
     filename:(req,file,cb)=>{
       cb(null,file.originalname);
@@ -105,13 +106,28 @@ router.get('/providers/list',(req,res)=>{
         res.json(providers)
     })
 })
+
+router.get("/providers/:id/:mode",(req,res)=>{
+    if(req.params.mode=="string"){
+        provider.find({'isp':req.params.id},(err,provider)=>{
+            if(err) throw err;
+            res.json(provider);
+        })
+    }
+    else{
+    provider.findById(req.params.id,(err,provider)=>{
+        if(err) throw err;
+        res.json(provider);
+    })
+}
+})
 router.get("/providers/:id",(req,res)=>{
     provider.findById(req.params.id,(err,provider)=>{
         if(err) throw err;
         res.json(provider);
     })
 })
-router.post('/providers',(req,res)=>{
+router.post('/providers',upload.single('file'),(req,res)=>{
     let {
         isp,
         desc,
@@ -123,16 +139,18 @@ router.post('/providers',(req,res)=>{
         'ref_link':ref_link,
         'desc':desc
     }
-    console.log("ID ",id)
-    console.log("BODY ",req.body)
-    req.files!=undefined?obj['thumb']=req.files[0].filename:null
-    console.log("ORIGINAL FILENAME: ",req.files);
     provider.findByIdAndUpdate(id,{$set:{
-       obj
+       'isp':isp,
+       'ref_link':ref_link,
+       'desc':desc,
     }},(err,result)=>{
         if(err)throw err;
         if(result)res.json(1);
     })  
+    if(obj.thumb){provider.findByIdAndUpdate(id,{$set:{
+        'thumb':req.files[0].filename
+    }})
+}
 })
 router.delete('/providers/:id',(req,res)=>{
     provider.findByIdAndUpdate(req.params.id,{$set:{deleted: 1 }},(err,result)=>{

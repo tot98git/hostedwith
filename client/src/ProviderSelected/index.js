@@ -6,14 +6,15 @@ import Axios from 'axios';
 export default class ProviderSelected extends Component{
     constructor(props){
         super(props);
-        console.log(props)
         this.state={
             provider:{},
-            id:this.props.location.state?this.props.location.state.id:null
+            id:this.props.location.state?this.props.location.state.id:this.props.match.params.id.replace("-",' '),
+            mode:this.props.location.state?"id":"string"
         }
     }
     componentDidMount(){
-        this.state.id!=null?Axios.get(`/api/providers/${this.state.id}`).then((res)=>{
+        console.log(this.state);
+        this.state.id!=null?Axios.get(`/api/providers/${this.state.id}/${this.state.mode}`).then((res)=>{
             this.setState({provider:res.data})
         }):null
     }

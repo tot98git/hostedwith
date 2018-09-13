@@ -43,18 +43,14 @@ export default class Edit extends Component {
         data.append('desc',this.state.provider.desc);
         data.append('ref_link',this.state.provider.ref_link);
         data.append('file',this.state.file)
-        console.log("DATA: ",data);
-        for (var [key,value] in data.entries() ){
-            console.log("KEY",key)
-        }
-        Axios.post("/providers/",data).then((res)=>{
+        Axios.post("/api/providers/",data).then((res)=>{
             if(res.data==1){
                 this.props.history.replace("/cms");
             }
         })
     }
     onDelete=()=>{
-        Axios.delete(`/providers/${this.props.match.params.id}`).then((res)=>{
+        Axios.delete(`/api/providers/${this.props.match.params.id}`).then((res)=>{
             if(res.data==1){
                 this.props.history.replace("/cms");
             }
