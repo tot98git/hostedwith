@@ -13,7 +13,6 @@ export default class ProviderSelected extends Component{
         }
     }
     componentDidMount(){
-        console.log(this.state);
         this.state.id!=null?Axios.get(`/api/providers/${this.state.id}/${this.state.mode}`).then((res)=>{
             this.setState({provider:res.data})
         }):null

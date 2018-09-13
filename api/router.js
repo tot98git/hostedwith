@@ -139,6 +139,13 @@ router.post('/providers',upload.single('file'),(req,res)=>{
         'ref_link':ref_link,
         'desc':desc
     }
+    if(req.file){
+        provider.findByIdAndUpdate(id,{$set:{
+        'thumb':req.file.filename
+    }},(err,result)=>{
+        if (err)throw err;
+        if(result) console.log('fine')
+    })
     provider.findByIdAndUpdate(id,{$set:{
        'isp':isp,
        'ref_link':ref_link,
@@ -147,9 +154,7 @@ router.post('/providers',upload.single('file'),(req,res)=>{
         if(err)throw err;
         if(result)res.json(1);
     })  
-    if(obj.thumb){provider.findByIdAndUpdate(id,{$set:{
-        'thumb':req.files[0].filename
-    }})
+   
 }
 })
 router.delete('/providers/:id',(req,res)=>{
